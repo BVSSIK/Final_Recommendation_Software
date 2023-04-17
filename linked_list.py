@@ -1,7 +1,8 @@
 class Node:
-    def __init__(self, value, next_node=None):
+    def __init__(self, value, name=None, next_node=None):
         self.value = value
         self.next_node = next_node
+        self.name = name
 
     def get_value(self):
         return self.value
@@ -20,10 +21,21 @@ class LinkedList:
     def get_head_node(self):
         return self.head_node
     
-    def insert_beginning(self, new_value):
-        new_node = Node(new_value)
+    def insert_beginning(self, new_value, name):
+        new_node = Node(new_value, name)
         new_node.set_next_node(self.head_node)
         self.head_node = new_node
+
+    def insert_end(self, new_value, name):
+        new_node = Node(new_value, name)
+        last_node = self.head_node
+        while True:
+            if last_node.get_next_node() == None:
+                last_node.set_next_node(new_node)
+                break
+            else:
+                last_node = last_node.get_next_node()
+
 
     def stringify_list(self):
         list_info = ""

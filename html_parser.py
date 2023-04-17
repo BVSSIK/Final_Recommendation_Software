@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 
-
 handle = open('VideoGameRecomendtionSoftware.html')
 html = handle.read()
 
@@ -8,13 +7,17 @@ html = handle.read()
 soup = BeautifulSoup(html, 'html.parser')
 tags = soup.body.find_all('li')
 video_game_data = {}
+video_game_subgenres = []
 
 for line in tags:
     if line.attrs['class'][0] == 'c7':
         main_genre = line.string
+        print(main_genre)
     
     if line.attrs['class'][0] == 'c5':
         sub_genre = line.string
+        video_game_subgenres.append(sub_genre)
+
     
     if line.attrs['class'][0] == 'c4':
         video_game_name = line.string
