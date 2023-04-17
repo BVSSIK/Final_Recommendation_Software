@@ -12,7 +12,7 @@ video_game_subgenres = []
 for line in tags:
     if line.attrs['class'][0] == 'c7':
         main_genre = line.string
-        print(main_genre)
+        #print(main_genre)
     
     if line.attrs['class'][0] == 'c5':
         sub_genre = line.string
@@ -53,4 +53,4 @@ for line in tags:
 
     
 
-print(video_game_data['New World'])
+#print(video_game_data['New World'])
