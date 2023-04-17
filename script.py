@@ -38,11 +38,16 @@ for subgenre in video_game_subgenres:
         # print(f'I am a Sports game: {ordered_list.get_head_node().get_value()}')
         sports.add_child(ordered_tree)
 
-video_game_tree_root.traverse()
 
-search = bfs(video_game_tree_root, 'Trackmania')
+bfs_search = bfs(video_game_tree_root, 'World of Warcraft')
 
-for ans in search:
+for ans in bfs_search:
+    if type(ans) == TreeNode:
+        print(ans.value)
+    print(ans)
+
+dfs_search = dfs(video_game_tree_root, 'World of Warcraft')
+for ans in dfs_search:
     if type(ans) == TreeNode:
         print(ans.value)
     print(ans)
