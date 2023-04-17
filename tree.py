@@ -18,3 +18,20 @@ class TreeNode:
             current_node = nodes_to_visit.pop()
             print(current_node.value)
             nodes_to_visit += current_node.children
+    
+    def depth_report(self, depth):
+        prev_depth = [self]
+        nodes_at = []
+        while prev_depth:
+            current_node = prev_depth.pop(0)
+            nodes_at += current_node.children
+            if len(current_node.children) == 0:
+                return None
+                
+
+            if depth != 0:
+                prev_depth += nodes_at
+                nodes_at = []
+                depth -= 1     
+        return nodes_at
+

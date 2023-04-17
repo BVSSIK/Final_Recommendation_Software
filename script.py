@@ -39,17 +39,22 @@ for subgenre in video_game_subgenres:
         sports.add_child(ordered_tree)
 
 
-bfs_search = bfs(video_game_tree_root, 'World of Warcraft')
+# bfs_search = bfs(video_game_tree_root, 'World of Warcraft')
 
-for ans in bfs_search:
-    if type(ans) == TreeNode:
-        print(ans.value)
-    print(ans)
+# for ans in bfs_search:
+#     if type(ans) == TreeNode:
+#         print(ans.value)
+#     print(ans)
 
-dfs_search = dfs(video_game_tree_root, 'World of Warcraft')
-for ans in dfs_search:
-    if type(ans) == TreeNode:
-        print(ans.value)
-    print(ans)
+# dfs_search = dfs(video_game_tree_root, 'World of Warcraft')
+# for ans in dfs_search:
+#     if type(ans) == TreeNode:
+#         print(ans.value)
+#     print(ans)
 
 
+dr = video_game_tree_root.depth_report(0)
+# print(dr)
+# if dr != None:
+#     for node in dr:
+#         print(f'report - {node.value.get_head_node().value}')
