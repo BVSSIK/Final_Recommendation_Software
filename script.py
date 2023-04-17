@@ -40,5 +40,11 @@ for subgenre in video_game_subgenres:
 
 video_game_tree_root.traverse()
 
+search = bfs(video_game_tree_root, 'Trackmania')
+
+for ans in search:
+    if type(ans) == TreeNode:
+        print(ans.value)
+    print(ans)
 
 
