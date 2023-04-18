@@ -93,4 +93,3 @@ def node_list_value_printer(nodes):
             print(node.get_head_node().get_value())
 
 
-# def video_game_flatten()
