@@ -1,30 +1,44 @@
 from collections import deque
-from linked_list import LinkedList
+from linked_list import LinkedList, video_game_flatten
 from tree import TreeNode
 
 
 def dfs(root, target, child_report = False, path=()):
     path = path + (root,)
+    game_w_tags = ''
 
     if root.value == target and child_report == False:
         return path
     elif root.value == target and child_report == True:
         return root.children
 
-    if type(root.value) == LinkedList:
-        linked_list_check = linear_search(root, path, target)
-        if linked_list_check != None:
-            if child_report == True:
-                    return root.value.video_game_flatten()
-            return linked_list_check
 
+        # if child_report == True:
+        #         return root.value.video_game_flatten()
+        # return linked_list_check
 
-    
     for child in root.children:
         path_found = dfs(child,target,child_report, path)
 
-        if path_found is not None:
+        if path_found != None:
             return path_found
+    
+    if type(root.value) == LinkedList:
+    #linked_list_check = linear_search(root, path, target)
+    #if linked_list_check != None:
+        current_node = root.value.get_head_node()
+        while current_node:
+            for flavor_tags in current_node.get_value():
+                if type(flavor_tags) == list:
+                    for tag in flavor_tags:
+                        if tag == target:
+                            game_w_tags += f'{video_game_flatten(current_node)}\n\n'
+            current_node = current_node.get_next_node()
+    
+    
+    if game_w_tags != "":
+        return game_w_tags
+    
         
     return None
 
@@ -56,7 +70,8 @@ def bfs(root_node, goal_value, child_report=False):
             linked_list_check = linear_search(current_node, current_path, goal_value)
             if linked_list_check != None:
                 if child_report == True:
-                    return current_node.value.video_game_flatten()
+                    # return current_node.value.video_game_flatten()
+                    return video_game_flatten(current_node.value)
                 return linked_list_check
      
     return None
@@ -93,3 +108,33 @@ def node_list_value_printer(nodes):
             print(node.get_head_node().get_value())
 
 
+# def video_game_flatten(linked_list, single=True):
+#     list_info = ""
+#     if type(linked_list) == LinkedList:
+#         sequence = linked_list.head_node
+#     else:
+#         sequence = linked_list
+
+#     while sequence:
+#         if sequence.get_value() != None:
+#             if type(sequence.get_value()) == list and sequence.name != None:
+#                 list_info += f'{sequence.name}\n'
+#                 for data in range(len(sequence.get_value())):
+#                     if data == 0:
+#                         list_info += f'Flavor Tags: {sequence.get_value()[data]}\n'
+#                     elif data == 1:
+#                         list_info += f'Price: {sequence.get_value()[data]}\n'
+#                     elif data == 2:
+#                         list_info += f'Rating: {sequence.get_value()[data]}\n'
+#                     elif data == 3:
+#                         list_info += f'Summary: {sequence.get_value()[data]}\n\n\n'              
+
+#             elif sequence.name == None:
+#                 list_info += '\n' + str(sequence.get_value()) + '\n\n'
+
+            
+#             if not single:
+#                 sequence = sequence.get_next_node()
+#             else:
+#                 sequence = None
+#     return list_info

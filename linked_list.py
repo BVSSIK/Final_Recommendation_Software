@@ -21,12 +21,12 @@ class LinkedList:
     def get_head_node(self):
         return self.head_node
     
-    def insert_beginning(self, new_value, name):
+    def insert_beginning(self, new_value, name=None):
         new_node = Node(new_value, name)
         new_node.set_next_node(self.head_node)
         self.head_node = new_node
 
-    def insert_end(self, new_value, name):
+    def insert_end(self, new_value, name=None):
         new_node = Node(new_value, name)
         last_node = self.head_node
         while True:
@@ -35,6 +35,16 @@ class LinkedList:
                 break
             else:
                 last_node = last_node.get_next_node()
+
+    def combine(self, new_lst):
+        current_node = new_lst.get_head_node()
+        #print(current_node.get_next_node().get_value())
+        while current_node.get_value():
+            print('Combining')
+            self.insert_beginning(current_node.get_value(), current_node.name)
+            current_node = current_node.get_next_node()
+        #video_game_flatten(self, False)
+        return self
 
 
     def stringify_list(self):
@@ -51,31 +61,6 @@ class LinkedList:
         return list_info
     
 
-    def video_game_flatten(self):
-        list_info = ""
-        sequence = self.head_node
-
-        while sequence:
-            if sequence.get_value() != None:
-                if type(sequence.get_value()) == list and sequence.name != None:
-                    list_info += f'{sequence.name}\n'
-                    for data in range(len(sequence.get_value())):
-                        if data == 0:
-                            list_info += f'Flavor Tags: {sequence.get_value()[data]}\n'
-                        elif data == 1:
-                            list_info += f'Price: {sequence.get_value()[data]}\n'
-                        elif data == 2:
-                            list_info += f'Rating: {sequence.get_value()[data]}\n'
-                        elif data == 3:
-                            list_info += f'Summary: {sequence.get_value()[data]}\n\n\n'              
-
-                elif sequence.name == None:
-                    list_info += '\n' + str(sequence.get_value()) + '\n\n'
-
-                sequence = sequence.get_next_node()
-        return list_info
-
-    
     def remove_node(self, value_to_remove):
         current_node = self.head_node
         if self.head_node.get_value() == value_to_remove:
@@ -88,3 +73,59 @@ class LinkedList:
                     current_node = None
                 else:
                     current_node = current_next_node
+
+
+
+def video_game_flatten(linked_list, single=True):
+    list_info = ""
+    if type(linked_list) == LinkedList:
+        sequence = linked_list.head_node
+    else:
+        sequence = linked_list
+    #print(sequence.get_next_node().get_value())
+    while sequence.get_value():
+        if sequence.get_value() != None:
+            if type(sequence.get_value()) == list and sequence.name != None:
+                list_info += f'{sequence.name}\n'
+                for data in range(len(sequence.get_value())):
+                    if data == 0:
+                        list_info += f'Flavor Tags: {sequence.get_value()[data]}\n'
+                    elif data == 1:
+                        list_info += f'Price: {sequence.get_value()[data]}\n'
+                    elif data == 2:
+                        list_info += f'Rating: {sequence.get_value()[data]}\n'
+                    elif data == 3:
+                        list_info += f'Summary: {sequence.get_value()[data]}\n\n\n'              
+
+            elif sequence.name == None:
+                list_info += '\n' + str(sequence.get_value()) + '\n\n'
+
+            
+            if not single:
+                sequence = sequence.get_next_node()
+            else:
+                return list_info
+    return list_info
+
+def tag_search(current_node, tag): 
+    #print(current_node)
+    video_games_to_print = None
+    video_game_linked = None
+    if type(current_node) == LinkedList:
+        video_game_linked = current_node.get_head_node()
+    elif type(current_node.value) == LinkedList:
+        video_game_linked = current_node.value.get_head_node()
+        
+    
+    if video_game_linked:
+        video_games_to_print = LinkedList()
+        while video_game_linked:
+            if video_game_linked.name != None and tag in video_game_linked.value[0]:
+                # print(video_game_linked.get_value())
+                # print(video_game_linked.name)
+                video_games_to_print.insert_beginning(video_game_linked.get_value(), video_game_linked.name)
+
+            video_game_linked = video_game_linked.get_next_node()
+
+        #print(video_game_flatten(video_games_to_print, False))
+    return video_games_to_print
