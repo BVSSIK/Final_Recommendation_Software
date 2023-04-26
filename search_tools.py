@@ -3,46 +3,6 @@ from linked_list import LinkedList, video_game_flatten
 from tree import TreeNode
 
 
-# def dfs(root, target, child_report = False, path=()):
-#     path = path + (root,)
-#     game_w_tags = ''
-
-#     if root.value == target and child_report == False:
-#         return path
-#     elif root.value == target and child_report == True:
-#         return root.children
-
-
-#         if child_report == True:
-#                 return root.value.video_game_flatten()
-#         return linked_list_check
-
-#     for child in root.children:
-#         path_found = dfs(child,target,child_report, path)
-
-#         if path_found != None:
-#             return path_found
-    
-#     if type(root.value) == LinkedList:
-#     #linked_list_check = linear_search(root, path, target)
-#     #if linked_list_check != None:
-#         current_node = root.value.get_head_node()
-#         while current_node:
-#             for flavor_tags in current_node.get_value():
-#                 if type(flavor_tags) == list:
-#                     for tag in flavor_tags:
-#                         if tag == target:
-#                             game_w_tags += f'{video_game_flatten(current_node)}\n\n'
-#             current_node = current_node.get_next_node()
-    
-    
-#     if game_w_tags != "":
-#         return game_w_tags
-    
-        
-#     return None
-
-
 def bfs(root_node, goal_value, child_report=False, parent_report=False):
 
     path_queue = deque()
@@ -69,38 +29,10 @@ def bfs(root_node, goal_value, child_report=False, parent_report=False):
             path_queue.appendleft(new_path)
         
         if type(current_node.value) == LinkedList:
-            #linked_list_check = linear_search(current_node, current_path, goal_value)
             print(f'{current_node.value.get_head_node().get_value()} - {goal_value}')
             if current_node.value.get_head_node().get_value() == goal_value:
                 return video_game_flatten(current_node.value, False)
-
-            # if linked_list_check != None:
-            #     if child_report == True:
-            #         # return current_node.value.video_game_flatten()
-            #         return video_game_flatten(current_node.value)
-            #     return linked_list_check
      
-    return None
-
-
-
-def linear_search(current_node, current_path, goal_value):
-    path_print = []
-    print(f'Entering linked list {current_node.value.get_head_node().get_value()}')
-    current_node = current_node.value.get_head_node()
-    while True:
-        # current_node = current_node.get_next_node()
-        if current_node.name == goal_value or current_node.value == goal_value:
-            for paths in current_path:
-                if type(paths.value) == LinkedList:
-                    path_print.append(paths.value.get_head_node().value)
-                else:
-                    path_print.append(paths.value)
-            return path_print, current_node.name, current_node.get_value()
-        
-        if current_node.get_next_node() == None:
-            break
-        current_node = current_node.get_next_node()
     return None
 
 

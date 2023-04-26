@@ -69,7 +69,7 @@ while True:
                 first_pick = input(f'\nPlease pick from the following genres; {str_first_choices}\n')
                 for check in first_choices:
                     print(f'{check} - {first_pick.capitalize()}')
-                    if first_pick.capitalize() == check:
+                    if first_pick.capitalize() == check.capitalize():
                         first_pick_real = check
                         break
 
@@ -87,7 +87,7 @@ while True:
             while not second_pick_real:
                 second_pick = input(f'\nPlease pick from the following sub-genres; {str_second_choices}\n')
                 for check in second_choices:
-                    if second_pick == check:
+                    if second_pick.capitalize() == check.capitalize():
                         second_pick_real = check
                         break
 

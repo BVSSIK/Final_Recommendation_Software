@@ -79,18 +79,13 @@ class LinkedList:
 def video_game_flatten(linked_list, single=True):
     list_info = ""
     if type(linked_list) == LinkedList:
-        #print('linked')
         sequence = linked_list.get_head_node()
-        #print(f"in linked - {sequence.get_value()}")
     else:
-        #print('node or other')
         sequence = linked_list
-    #print(sequence.get_next_node().get_value())
     while sequence:
         if sequence.get_value() != None:
             if type(sequence.get_value()) == list and sequence.name != None:
                 list_info += f'{sequence.name}\n'
-                
                 for data in range(len(sequence.get_value())):
                     if data == 0:
                         list_info += f'Flavor Tags: {sequence.get_value()[data]}\n'
@@ -100,14 +95,12 @@ def video_game_flatten(linked_list, single=True):
                         list_info += f'Rating: {sequence.get_value()[data]}\n'
                     elif data == 3:
                         list_info += f'Summary: {sequence.get_value()[data]}\n\n\n'              
-
             elif sequence.name == None:
                 list_info += '\n' + str(sequence.get_value()) + '\n\n'
             
             if not single:
                 sequence = sequence.get_next_node()
             else:
-                #print('stuck break 2')
                 break
         else:
             break
@@ -115,7 +108,6 @@ def video_game_flatten(linked_list, single=True):
     return list_info
 
 def tag_search(current_node, tag): 
-    #print(current_node)
     video_games_to_print = None
     video_game_linked = None
     if type(current_node) == LinkedList:
@@ -123,16 +115,12 @@ def tag_search(current_node, tag):
     elif type(current_node.value) == LinkedList:
         video_game_linked = current_node.value.get_head_node()
         
-    
     if video_game_linked:
         video_games_to_print = LinkedList()
         while video_game_linked:
             if video_game_linked.name != None and tag in video_game_linked.value[0]:
-                # print(video_game_linked.get_value())
-                # print(video_game_linked.name)
                 video_games_to_print.insert_beginning(video_game_linked.get_value(), video_game_linked.name)
 
             video_game_linked = video_game_linked.get_next_node()
 
-        #print(video_game_flatten(video_games_to_print, False))
     return video_games_to_print
