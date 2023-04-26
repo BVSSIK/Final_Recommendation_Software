@@ -1,6 +1,6 @@
 from linked_list import Node, LinkedList
 from tree import TreeNode
-from search_tools import dfs, bfs, node_list_value_printer
+from search_tools import bfs, node_list_value_printer
 from html_parser import video_game_data, video_game_subgenres
 
 def tree_builder(video_game_data, video_game_subgenres):

@@ -30,19 +30,7 @@ class TreeNode:
             nodes_to_visit += current_node.children
             
         return nodes_to_print
-        #         if type(current_node.value) == LinkedList:
-        #             video_game_linked = current_node.value.get_head_node()
-        #             while video_game_linked:
-        #                 if video_game_linked.name != None and tag in video_game_linked.value[0]:
-        #                     # print(video_game_linked.get_value())
-        #                     # print(video_game_linked.name)
-        #                     video_games_to_print.insert_beginning(video_game_linked.get_value(), video_game_linked.name)
 
-        #                 video_game_linked = video_game_linked.get_next_node()
-
-        #     nodes_to_visit += current_node.children
-        # return video_games_to_print
-    
     def depth_report(self, depth):
         prev_depth = [self]
         nodes_at = []
@@ -58,22 +46,3 @@ class TreeNode:
                 nodes_at = []
                 depth -= 1     
         return nodes_at
-
-
-
-# def tag_search(current_node, tag): 
-#     #print(current_node)
-#     video_games_to_print = None
-#     if type(current_node.value) == LinkedList:
-#         video_games_to_print = LinkedList()
-#         video_game_linked = current_node.value.get_head_node()
-#         while video_game_linked:
-#             if video_game_linked.name != None and tag in video_game_linked.value[0]:
-#                 # print(video_game_linked.get_value())
-#                 # print(video_game_linked.name)
-#                 video_games_to_print.insert_beginning(video_game_linked.get_value(), video_game_linked.name)
-
-#             video_game_linked = video_game_linked.get_next_node()
-
-#         #print(video_game_flatten(video_games_to_print, False))
-#     return video_games_to_print
