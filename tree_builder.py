@@ -42,35 +42,3 @@ def tree_builder(video_game_data, video_game_subgenres):
     return video_game_tree_root
 
 
-# video_game_tree_root = tree_builder(video_game_data, video_game_subgenres)
-
-
-# bfs_search = bfs(video_game_tree_root, 'MMORPG')
-# dfs_search = dfs(video_game_tree_root, 'MMORPG', True)
-
-# print(bfs_search)
-# print(dfs_search)
-
-#node_list_value_printer(bfs_search)
-#node_list_value_printer(dfs_search)
-
-# for ans in bfs_search:
-#     if type(ans.value) == LinkedList:
-#         print(ans.value.get_head_node().get_value())
-    #print(ans)
-
-# dfs_search = dfs(video_game_tree_root, 'World of Warcraft')
-# for ans in dfs_search:
-#     if type(ans) == TreeNode:
-#         print(ans.value)
-#     print(ans)
-
-
-# dr = video_game_tree_root.depth_report(1)
-# # print(dr)
-# if dr != None:
-#     for node in dr:
-#         if type(node.value) == LinkedList:
-#             print(f'report - {node.value.get_head_node().value}')
-#         else:
-#             print(f'report - {node.value}')
