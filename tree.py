@@ -16,7 +16,7 @@ class TreeNode:
         self.children = [child for child in self.children if child is not child_node]
 
     def traverse(self, tag = None, linked_list_search=True):
-        print('Traversing...')
+        print('Traversing...\n')
         nodes_to_visit = [self]
         nodes_to_print = LinkedList()
         while len(nodes_to_visit) != 0:

@@ -43,7 +43,7 @@ from tree import TreeNode
 #     return None
 
 
-def bfs(root_node, goal_value, child_report=False):
+def bfs(root_node, goal_value, child_report=False, parent_report=False):
 
     path_queue = deque()
 
@@ -55,10 +55,12 @@ def bfs(root_node, goal_value, child_report=False):
         current_node = current_path[-1]
         print(f'Searching node with value: {current_node.value}')
 
-        if current_node.value == goal_value and child_report == False:
+        if current_node.value == goal_value and child_report == False and parent_report == False:
             return current_path
-        elif current_node.value == goal_value:
+        elif current_node.value == goal_value and parent_report == False:
             return current_node.children
+        elif current_node.value == goal_value:
+            return current_node.children, current_node
 
 
         for child in current_node.children:
@@ -67,12 +69,16 @@ def bfs(root_node, goal_value, child_report=False):
             path_queue.appendleft(new_path)
         
         if type(current_node.value) == LinkedList:
-            linked_list_check = linear_search(current_node, current_path, goal_value)
-            if linked_list_check != None:
-                if child_report == True:
-                    # return current_node.value.video_game_flatten()
-                    return video_game_flatten(current_node.value)
-                return linked_list_check
+            #linked_list_check = linear_search(current_node, current_path, goal_value)
+            print(f'{current_node.value.get_head_node().get_value()} - {goal_value}')
+            if current_node.value.get_head_node().get_value() == goal_value:
+                return video_game_flatten(current_node.value, False)
+
+            # if linked_list_check != None:
+            #     if child_report == True:
+            #         # return current_node.value.video_game_flatten()
+            #         return video_game_flatten(current_node.value)
+            #     return linked_list_check
      
     return None
 
@@ -99,11 +105,13 @@ def linear_search(current_node, current_path, goal_value):
 
 
 def node_list_value_printer(nodes):
+    lst_version = []
     for node in nodes:
         if type(node) == TreeNode and type(node.value) != LinkedList:
-            print(node.value)
+            lst_version.append(node.value) 
         elif type(node.value) == LinkedList:
-            print(node.value.get_head_node().get_value())
+            lst_version.append(node.value.get_head_node().get_value())
         elif type(node) == LinkedList:
-            print(node.get_head_node().get_value())
+            lst_version.append(node.get_head_node().get_value())
+    return lst_version
 

@@ -12,8 +12,8 @@ video_game_subgenres = []
 video_game_flavors = []
 
 for line in tags:
-    #print(line)
-    if line.attrs['class'][0] == 'c8':
+    # print(line)
+    if line.attrs['class'][0] == 'c6':
         main_genre = line.string
         #print(main_genre)
     
@@ -23,7 +23,7 @@ for line in tags:
         video_game_subgenres.append(sub_genre)
 
     
-    if line.attrs['class'][0] == 'c3':
+    if line.attrs['class'][0] == 'c1':
         video_game_name = line.string
 
     

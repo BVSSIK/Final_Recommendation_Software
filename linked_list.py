@@ -40,7 +40,7 @@ class LinkedList:
         current_node = new_lst.get_head_node()
         #print(current_node.get_next_node().get_value())
         while current_node.get_value():
-            print('Combining')
+            #print('Combining')
             self.insert_beginning(current_node.get_value(), current_node.name)
             current_node = current_node.get_next_node()
         #video_game_flatten(self, False)
@@ -79,14 +79,18 @@ class LinkedList:
 def video_game_flatten(linked_list, single=True):
     list_info = ""
     if type(linked_list) == LinkedList:
-        sequence = linked_list.head_node
+        #print('linked')
+        sequence = linked_list.get_head_node()
+        #print(f"in linked - {sequence.get_value()}")
     else:
+        #print('node or other')
         sequence = linked_list
     #print(sequence.get_next_node().get_value())
-    while sequence.get_value():
+    while sequence:
         if sequence.get_value() != None:
             if type(sequence.get_value()) == list and sequence.name != None:
                 list_info += f'{sequence.name}\n'
+                
                 for data in range(len(sequence.get_value())):
                     if data == 0:
                         list_info += f'Flavor Tags: {sequence.get_value()[data]}\n'
@@ -99,12 +103,15 @@ def video_game_flatten(linked_list, single=True):
 
             elif sequence.name == None:
                 list_info += '\n' + str(sequence.get_value()) + '\n\n'
-
             
             if not single:
                 sequence = sequence.get_next_node()
             else:
-                return list_info
+                #print('stuck break 2')
+                break
+        else:
+            break
+            
     return list_info
 
 def tag_search(current_node, tag): 
