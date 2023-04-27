@@ -19,7 +19,7 @@ while True:
         search_type = 'Tag Search'
         print(f"\nThank you for choosing {search_type}")
         flavor_choices = ""
-        flavor_tag_picks = []
+        flavor_tag_picks = ['2']
         while True:
             while not flavor_choices:
                 first_phrase = input(f"Please enter the starting letters of a video game's flavor tag ex. sci for Sci-Fi or mul for multiplayer\n") 
@@ -35,7 +35,7 @@ while True:
                 for flavor in video_game_flavors:
                     if first_tag.lower() == flavor:
                         first_flavor_tag = flavor
-                        flavor_tag_picks.append(first_flavor_tag)
+                        flavor_tag_picks.insert(0, first_flavor_tag)
                 if not first_flavor_tag:
                     print("\nSorry what you have entered doesn't match any of our flavor tags. Please try again, spelling matters.\n")
                     continue
@@ -51,7 +51,7 @@ while True:
             if final_pick == 0:
                 final_link = video_game_tree_root.traverse(flavor_tag_picks[final_pick])
             else:
-                final_link = tag_search(final_link, flavor_tag_picks[final_pick])
+                final_link = tag_search(final_link, flavor_tag_picks[final_pick], 2)
         print(video_game_flatten(final_link, False))
   
 

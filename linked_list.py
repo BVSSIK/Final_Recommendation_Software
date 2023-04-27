@@ -107,7 +107,28 @@ def video_game_flatten(linked_list, single=True):
             
     return list_info
 
-def tag_search(current_node, tag): 
+# def tag_search(current_node, tag): 
+#     video_games_to_print = None
+#     video_game_linked = None
+#     if type(current_node) == LinkedList:
+#         video_game_linked = current_node.get_head_node()
+#     elif type(current_node.value) == LinkedList:
+#         video_game_linked = current_node.value.get_head_node()
+        
+#     if video_game_linked:
+#         video_games_to_print = LinkedList()
+#         while video_game_linked:
+#             if video_game_linked.name != None and tag in video_game_linked.value[0]:
+#                 video_games_to_print.insert_beginning(video_game_linked.get_value(), video_game_linked.name)
+
+#             video_game_linked = video_game_linked.get_next_node()
+
+#     return video_games_to_print
+
+
+
+def tag_search(current_node, tag, search_type): 
+    #types are 0 = flavor tags, 1 = Price, 2 = Review, 3 = Summary
     video_games_to_print = None
     video_game_linked = None
     if type(current_node) == LinkedList:
@@ -118,7 +139,7 @@ def tag_search(current_node, tag):
     if video_game_linked:
         video_games_to_print = LinkedList()
         while video_game_linked:
-            if video_game_linked.name != None and tag in video_game_linked.value[0]:
+            if video_game_linked.name != None and tag in video_game_linked.value[search_type]:
                 video_games_to_print.insert_beginning(video_game_linked.get_value(), video_game_linked.name)
 
             video_game_linked = video_game_linked.get_next_node()

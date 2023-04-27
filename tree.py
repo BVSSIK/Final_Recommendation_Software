@@ -24,7 +24,7 @@ class TreeNode:
             if linked_list_search == False:
                 print(current_node.value)
             elif tag != None:
-                current_tag_matches = tag_search(current_node, tag)
+                current_tag_matches = tag_search(current_node, tag, 0)
                 if current_tag_matches:
                     nodes_to_print.combine(current_tag_matches)
             nodes_to_visit += current_node.children
