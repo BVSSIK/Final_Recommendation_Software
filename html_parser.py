@@ -10,6 +10,8 @@ tags = soup.body.find_all('li')
 video_game_data = {}
 video_game_subgenres = []
 video_game_flavors = []
+video_game_prices = []
+video_game_reviews = []
 
 for line in tags:
     # print(line)
@@ -50,8 +52,22 @@ for line in tags:
                 flavor = flavor.lower().strip()
                 if flavor not in video_game_flavors:
                     video_game_flavors.append(flavor)
+        elif placement == 1:
+            data = data.strip()
+            if data not in video_game_prices:
+                video_game_prices.append(data)
+        elif placement == 2:
+            if not data.startswith('tbd'):
+                data = data.strip()[0]
+            if data not in video_game_reviews:
+                
+                video_game_reviews.append(data)
 
 
         video_game_data[video_game_name][1][1].append(data) 
+
+
+
+
 
     

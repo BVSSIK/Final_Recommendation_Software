@@ -1,5 +1,5 @@
 from tree_builder import tree_builder
-from html_parser import video_game_data, video_game_subgenres, video_game_flavors
+from html_parser import video_game_data, video_game_subgenres, video_game_flavors, video_game_prices, video_game_reviews
 from intro import intro
 from search_tools import bfs, node_list_value_printer
 from linked_list import video_game_flatten, tag_search
@@ -15,44 +15,98 @@ while True:
     search_type = input('\nWelcome to the Destiny Game Machine, we have 2 different types of searches for you a "tag search" and a "genre search"\nOur "tag search" will allow you to type the start of a flavor tag of a game like "sci-fi" or "multiplayer"\nWhile our "genre search" will guide you from genre to sub-genre and then will list off all games in the chosen sub-genre\nWhat search would you like\n')
     
     
+    # if bool(re.search('[Tt].*',search_type)):
+    #     search_type = 'Tag Search'
+    #     print(f"\nThank you for choosing {search_type}")
+    #     flavor_choices = ""
+    #     flavor_tag_picks = []
+    #     while True:
+    #         while not flavor_choices:
+    #             first_phrase = input(f"Please enter the starting letters of a video game's flavor tag ex. sci for Sci-Fi or mul for multiplayer\n") 
+    #             for flavor in video_game_flavors:
+    #                 if first_phrase.lower() in flavor:
+    #                     flavor_choices += flavor + ", "
+    #             if not flavor_choices:
+    #                 print(f"So sorry, the phrase you entered isn't contained in the flavor tag list. Here is the list to help you with your choice {video_game_flavors}")
+    #                 continue
+    #         first_flavor_tag = None
+    #         while not first_flavor_tag:
+    #             first_tag = input(f'\nThese are the choices that matched your phrase {first_phrase}; {flavor_choices}; Please fully type out the tag you would like.\n')
+    #             for flavor in video_game_flavors:
+    #                 if first_tag.lower() == flavor:
+    #                     first_flavor_tag = flavor
+    #                     flavor_tag_picks.append(first_flavor_tag)
+    #             if not first_flavor_tag:
+    #                 print("\nSorry what you have entered doesn't match any of our flavor tags. Please try again, spelling matters.\n")
+    #                 continue
+    #         if len(flavor_tag_picks) >= 3:
+    #             break
+    #         another_tag = input(f'\nWould you like to add another tag (Up to 3)? y/n\n')
+    #         if bool(re.search('[Yy].*', another_tag)):
+    #             flavor_choices = ""
+    #             continue
+    #         else:
+    #             break
+    #     for final_pick in range(len(flavor_tag_picks)):
+    #         if final_pick == 0:
+    #             final_link = video_game_tree_root.traverse(flavor_tag_picks[final_pick])
+    #         else:
+    #             final_link = tag_search(final_link, flavor_tag_picks[final_pick], 0)
+    #     print(video_game_flatten(final_link, False))
+    
     if bool(re.search('[Tt].*',search_type)):
         search_type = 'Tag Search'
         print(f"\nThank you for choosing {search_type}")
-        flavor_choices = ""
-        flavor_tag_picks = ['2']
+        flavor_tag_picks = []
         while True:
-            while not flavor_choices:
-                first_phrase = input(f"Please enter the starting letters of a video game's flavor tag ex. sci for Sci-Fi or mul for multiplayer\n") 
-                for flavor in video_game_flavors:
-                    if first_phrase.lower() in flavor:
-                        flavor_choices += flavor + ", "
-                if not flavor_choices:
-                    print(f"So sorry, the phrase you entered isn't contained in the flavor tag list. Here is the list to help you with your choice {video_game_flavors}")
-                    continue
-            first_flavor_tag = None
-            while not first_flavor_tag:
-                first_tag = input(f'\nThese are the choices that matched your phrase {first_phrase}; {flavor_choices}; Please fully type out the tag you would like.\n')
-                for flavor in video_game_flavors:
-                    if first_tag.lower() == flavor:
-                        first_flavor_tag = flavor
-                        flavor_tag_picks.insert(0, first_flavor_tag)
-                if not first_flavor_tag:
-                    print("\nSorry what you have entered doesn't match any of our flavor tags. Please try again, spelling matters.\n")
-                    continue
+            what_data = input(f"What would you like your first tag choice to be?\nFlavor, Price or Review out of 5\n")
+            if bool(re.search('[Ff]\S*', what_data)):
+                placement = 0
+                flavor_choices = ""
+                while not flavor_choices:
+                    first_phrase = input(f"Please enter the starting letters of a video game's flavor tag ex. sci for Sci-Fi or mul for multiplayer\n") 
+                    for flavor in video_game_flavors:
+                        if first_phrase.lower() in flavor:
+                            flavor_choices += flavor + ", "
+                    if not flavor_choices:
+                        print(f"So sorry, the phrase you entered isn't contained in the flavor tag list. Here is the list to help you with your choice {video_game_flavors}")
+                        continue
+
+                first_flavor_tag = None
+
+                while not first_flavor_tag:
+                    first_tag = input(f'\nThese are the choices that matched your phrase {first_phrase}; {flavor_choices}; Please fully type out the tag you would like.\n')
+                    for flavor in video_game_flavors:
+                        if first_tag.lower() == flavor:
+                            first_flavor_tag = flavor
+                            flavor_tag_picks.append([placement, first_flavor_tag])
+                    if not first_flavor_tag:
+                        print("\nSorry what you have entered doesn't match any of our flavor tags. Please try again, spelling matters.\n")
+                        continue
+            
+            elif bool(re.search('[Pp]\S*', what_data)):
+                placement = 1
+
+
+
             if len(flavor_tag_picks) >= 3:
                 break
             another_tag = input(f'\nWould you like to add another tag (Up to 3)? y/n\n')
             if bool(re.search('[Yy].*', another_tag)):
-                flavor_choices = ""
                 continue
             else:
                 break
+
         for final_pick in range(len(flavor_tag_picks)):
             if final_pick == 0:
-                final_link = video_game_tree_root.traverse(flavor_tag_picks[final_pick])
+                final_link = video_game_tree_root.traverse(flavor_tag_picks[final_pick][1], search_type=flavor_tag_picks[final_pick][0])
             else:
-                final_link = tag_search(final_link, flavor_tag_picks[final_pick], 2)
-        print(video_game_flatten(final_link, False))
+                final_link = tag_search(final_link, flavor_tag_picks[final_pick][1], search_type=flavor_tag_picks[final_pick][0] )
+        response = video_game_flatten(final_link, False)
+        if response:
+            print(response)
+        else:
+            print(f"Your tag choices have resulted in no games being found, try again with less or different tags")
   
 
 

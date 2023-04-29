@@ -15,7 +15,7 @@ class TreeNode:
         print(f'Removing {child_node.value} from {self.value}')
         self.children = [child for child in self.children if child is not child_node]
 
-    def traverse(self, tag = None, linked_list_search=True):
+    def traverse(self, tag = None, linked_list_search=True, search_type = 0):
         print('Traversing...\n')
         nodes_to_visit = [self]
         nodes_to_print = LinkedList()
@@ -24,7 +24,7 @@ class TreeNode:
             if linked_list_search == False:
                 print(current_node.value)
             elif tag != None:
-                current_tag_matches = tag_search(current_node, tag, 0)
+                current_tag_matches = tag_search(current_node, tag, search_type)
                 if current_tag_matches:
                     nodes_to_print.combine(current_tag_matches)
             nodes_to_visit += current_node.children
