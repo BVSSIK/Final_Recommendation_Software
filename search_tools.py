@@ -1,6 +1,7 @@
 from collections import deque
 from linked_list import LinkedList, video_game_flatten
 from tree import TreeNode
+from html_parser import video_game_flavors, video_game_prices, video_game_reviews
 
 
 def bfs(root_node, goal_value, child_report=False, parent_report=False):
@@ -47,3 +48,42 @@ def node_list_value_printer(nodes):
             lst_version.append(node.get_head_node().get_value())
     return lst_version
 
+
+
+def tag_setup(tag_type, first_phrase, ):
+
+    if tag_type == 0:
+        tag_list = video_game_flavors
+    elif tag_type == 1:
+        tag_list = video_game_prices
+        print(f'Here is a list of all the prices we have in our system. Please pick from one.\n{tag_list}\n')
+    elif tag_type == 2:
+        tag_list = video_game_reviews
+    else:
+        print("Error, incorrect tag type entered")
+
+    flavor_choices = []
+    while not flavor_choices:
+        starter_input = input(first_phrase) 
+        for flavor in tag_list:
+            if starter_input.lower() in flavor:
+                flavor_choices.append(flavor)
+        if not flavor_choices:
+            print(f"So sorry, the phrase or number you entered isn't contained in the tag list. Here is the list to help you with your choice {tag_list}\n")
+            continue
+
+    first_flavor_tag = None
+
+
+    while not first_flavor_tag:
+        if tag_type != 2:
+            first_tag = input(f'\nThese are the choices that matched your phrase {starter_input}; {", ".join(str(e) for e in flavor_choices)}; Please fully type out the tag you would like.\n')
+        else:
+            first_tag = starter_input
+        for flavor in flavor_choices:
+            if first_tag.lower() in flavor.lower():
+                first_flavor_tag = flavor
+                return [tag_type, first_flavor_tag]
+        print(flavor_choices)
+        print("\nSorry what you have entered doesn't match any of our flavor tags. Please try again, spelling matters.\n")
+        continue
