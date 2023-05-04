@@ -2,6 +2,7 @@ from collections import deque
 from linked_list import LinkedList, video_game_flatten
 from tree import TreeNode
 from html_parser import video_game_flavors, video_game_prices, video_game_reviews
+import re
 
 
 def bfs(root_node, goal_value, child_report=False, parent_report=False):
@@ -22,7 +23,6 @@ def bfs(root_node, goal_value, child_report=False, parent_report=False):
             return current_node.children
         elif current_node.value == goal_value:
             return current_node.children, current_node
-
 
         for child in current_node.children:
             new_path = current_path.copy()
@@ -50,7 +50,7 @@ def node_list_value_printer(nodes):
 
 
 
-def tag_setup(tag_type, first_phrase, ):
+def tag_setup(tag_type, first_phrase):
 
     if tag_type == 0:
         tag_list = video_game_flavors
@@ -66,15 +66,13 @@ def tag_setup(tag_type, first_phrase, ):
     while not flavor_choices:
         starter_input = input(first_phrase) 
         for flavor in tag_list:
-            if starter_input.lower() in flavor:
+            if starter_input.lower() in flavor.lower():
                 flavor_choices.append(flavor)
         if not flavor_choices:
             print(f"So sorry, the phrase or number you entered isn't contained in the tag list. Here is the list to help you with your choice {tag_list}\n")
             continue
 
     first_flavor_tag = None
-
-
     while not first_flavor_tag:
         if tag_type != 2:
             first_tag = input(f'\nThese are the choices that matched your phrase {starter_input}; {", ".join(str(e) for e in flavor_choices)}; Please fully type out the tag you would like.\n')
@@ -84,6 +82,19 @@ def tag_setup(tag_type, first_phrase, ):
             if first_tag.lower() in flavor.lower():
                 first_flavor_tag = flavor
                 return [tag_type, first_flavor_tag]
-        print(flavor_choices)
         print("\nSorry what you have entered doesn't match any of our flavor tags. Please try again, spelling matters.\n")
         continue
+
+
+def yes_and_no(question):
+    another_tag = None
+    while True:
+        another_tag = input(f'\n{question}\n')
+        if bool(re.search('[Yy].*', another_tag)):
+            return "continue"
+        elif bool(re.search('[Nn].*', another_tag)):
+            return "break"
+        else:
+            print("Enter in Y for yes and N for no")
+            continue
+            

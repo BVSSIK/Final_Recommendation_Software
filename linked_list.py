@@ -38,12 +38,9 @@ class LinkedList:
 
     def combine(self, new_lst):
         current_node = new_lst.get_head_node()
-        #print(current_node.get_next_node().get_value())
         while current_node.get_value():
-            #print('Combining')
             self.insert_beginning(current_node.get_value(), current_node.name)
             current_node = current_node.get_next_node()
-        #video_game_flatten(self, False)
         return self
 
 
@@ -106,25 +103,6 @@ def video_game_flatten(linked_list, single=True):
             break
             
     return list_info
-
-# def tag_search(current_node, tag): 
-#     video_games_to_print = None
-#     video_game_linked = None
-#     if type(current_node) == LinkedList:
-#         video_game_linked = current_node.get_head_node()
-#     elif type(current_node.value) == LinkedList:
-#         video_game_linked = current_node.value.get_head_node()
-        
-#     if video_game_linked:
-#         video_games_to_print = LinkedList()
-#         while video_game_linked:
-#             if video_game_linked.name != None and tag in video_game_linked.value[0]:
-#                 video_games_to_print.insert_beginning(video_game_linked.get_value(), video_game_linked.name)
-
-#             video_game_linked = video_game_linked.get_next_node()
-
-#     return video_games_to_print
-
 
 
 def tag_search(current_node, tag, search_type): 

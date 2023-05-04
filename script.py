@@ -1,7 +1,7 @@
 from tree_builder import tree_builder
 from html_parser import video_game_data, video_game_subgenres, video_game_flavors, video_game_prices, video_game_reviews
 from intro import intro
-from search_tools import bfs, node_list_value_printer, tag_setup
+from search_tools import bfs, node_list_value_printer, tag_setup, yes_and_no
 from linked_list import video_game_flatten, tag_search
 import re
 
@@ -12,32 +12,32 @@ print(intro)
 
 while True:
     
-    search_type = input('\nWelcome to the Destiny Game Machine, we have 2 different types of searches for you a "tag search" and a "genre search"\nOur "tag search" will allow you to type the start of a game tag like "sci-fi" or "multiplayer",\n its price (prices will be listed for choice when picked) or its review out of 5 like 3 or 4 \nWhile our "genre search" will guide you from genre to sub-genre and then will list off all games in the chosen sub-genre\nWhat search would you like\n')
+    search_type = input('\nWelcome to the Destiny Game Machine, we have 2 different types of searches for you a "tag search" and a "genre search"\nOur "tag search" will allow you to type the start of a game tag like "sci-fi" or "multiplayer",\nits price (prices will be listed for choice when picked) or its review out of 5 like 3 or 4 \nWhile our "genre search" will guide you from genre to sub-genre and then will list off all games in the chosen sub-genre\nWhat search would you like? Tag or Genre\n')
     
-    if bool(re.search('[Tt].*',search_type)):
+    if bool(re.search('[Tt]\S?[Gg].*',search_type)):
         search_type = 'Tag Search'
         print(f"\nThank you for choosing {search_type}")
         flavor_tag_picks = []
 
         while True:
-            what_data = input(f"What would you like your tag choice to be?\nFlavor, Price or Review out of 5\n")
+            what_data = input(f"\nWhat would you like your tag choice to be?\nFlavor, Price or Review out of 5\n")
 
 
-            if bool(re.search('[Ff]\S*', what_data)):
+            if bool(re.search('^[Ff]\S?\S?\S?\S?[Rr]', what_data)):
                 placement = 0
-                is_there_something = tag_setup(placement, "Please enter the starting letters of a video game's flavor tag ex. sci for Sci-Fi or mul for multiplayer\n" )
+                is_there_something = tag_setup(placement, "Please enter the starting letters of a video game's flavor tag ex. sci for Sci-Fi or mul for multiplayer. You can type just 1 letter like 's'\n" )
                 if is_there_something:
                     flavor_tag_picks.append(is_there_something)
 
-            elif bool(re.search('[Pp]\S*', what_data)):
+            elif bool(re.search('^[Pp]\S?\S?\S?[Ee]', what_data)):
                 placement = 1
                 is_there_something = tag_setup(placement, "Please enter the price of game you would like to look for. (Only 1 Price tag can be entered)\n" )
                 if is_there_something:
                     flavor_tag_picks.append(is_there_something)
 
-            elif bool(re.search('[Rr]\S*', what_data)):
+            elif bool(re.search('^[Rr]\S?\S?\S?\S?[Ww]', what_data)):
                 placement = 2
-                is_there_something = tag_setup(placement, "Please enter a number out of 5. ex 1 , 4 \n (Only 1 Review tag can be entered) ")
+                is_there_something = tag_setup(placement, "Please enter a number out of 5. ex 1 , 4 \n (Only 1 Review tag can be entered)\n")
                 if is_there_something:
                     flavor_tag_picks.append(is_there_something)
             
@@ -48,11 +48,15 @@ while True:
 
             if len(flavor_tag_picks) >= 3:
                 break
-            another_tag = input(f'\nWould you like to add another tag (Up to 3)? y/n\n')
-            if bool(re.search('[Yy].*', another_tag)):
+
+            another_tag = yes_and_no("Would you like to add another tag (Up to 3)? y/n")
+            
+            if another_tag == "continue":
                 continue
-            else:
+            elif another_tag == "break":
                 break
+                    
+            
 
         for final_pick in range(len(flavor_tag_picks)):
             if final_pick == 0:
@@ -67,7 +71,7 @@ while True:
   
 
 
-    elif bool(re.search('[Gg],*',search_type)):
+    elif bool(re.search('[Gg]\S?\S?\S?[Ee].*',search_type)):
             search_type = 'Genre Search'
             first_choices = video_game_tree_root.depth_report(0)
             first_choices = node_list_value_printer(first_choices)
@@ -114,10 +118,10 @@ while True:
          continue
     
     
-    again = input(f'\nDo you want to use the Destiny Game Machine again? y/n\n')
-    if bool(re.search('[Yy],*', again)):
+    again = yes_and_no("Do you want to use the Destiny Game Machine again? y/n")
+    if again == "continue":
         continue
-    else:
+    elif again == "break":
         break
 
 

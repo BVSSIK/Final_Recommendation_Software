@@ -5,7 +5,6 @@ html = handle.read()
 
 
 soup = BeautifulSoup(html, 'html.parser')
-# tags = soup.body.find_all('li')
 tags = soup.body.find_all('li')
 video_game_data = {}
 video_game_subgenres = []
